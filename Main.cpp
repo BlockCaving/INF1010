@@ -61,6 +61,7 @@ int main()
 
 	//8- Ajoutez les deux images crées precédament au groupe
 	cout << "Ajout image";
+	cout << endl;
 	groupe1.ajouterImage(img1);
 	groupe1.ajouterImage(img2);
 	
