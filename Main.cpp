@@ -89,7 +89,7 @@ int main()
 
 	//15- Afficher cette image 
 	
-	
+	// Destructeur
 	//img1.~Image();
 	//img2.~Image();
 	//groupe1.~GroupImage();
