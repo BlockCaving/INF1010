@@ -68,7 +68,6 @@ int main()
 	GroupImage groupe1 = GroupImage("Type 1", 3);
 
 	//8- Ajoutez les deux images crées precédament au groupe
-	cout << endl;
 	groupe1.ajouterImage(img1);
 	groupe1.ajouterImage(img2);
 	
@@ -92,7 +91,7 @@ int main()
 	*/
 
 	//10- Diminuer la teinte rouge du Pixel (1, 1) de l'image 0 de 255 unités
-	img1.augmenterTeintePixel(1, 1, -255, 'R');
+	img1.augmenterTeintePixel(1, 1, -255, 'R'); //Problème à régler avec .obtenirImage
 
 	//11- Augmentez la teinte bleu du Pixel (2, 1) de l'image 1 de 100 unités  
 	img2.augmenterTeintePixel(2, 1, 100, 'B');
@@ -103,11 +102,17 @@ int main()
 	groupe1.afficherImages();
 
 	//13- Doublez la taille de la premiere image du groupe en largeur	
+	groupe1.doublerTailleImageEnLargeur(0);
 
 	//14- Doublez la taille de la deuxieme image du groupe en hauteur
+	groupe1.doublerTailleImageEnHauteur(1);
 
 	//15- Afficher cette image 
+	cout << "*** Groupe d'images avec taille differente ***";
+	cout << endl;
+	groupe1.afficherImages();
 	
+
 	// Destructeur
 	//img1.~Image();
 	//img2.~Image();

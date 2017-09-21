@@ -50,9 +50,44 @@ void Image::modifierNomImage(const string & nomImage) {
 
 // Doubler taille
 void Image::doublerTailleEnLargeur() {
-	nombrePixelEnLargeur_ = 2 * nombrePixelEnLargeur_;
+	// Stockage des lignes de l'image.
+	for (unsigned int j = 0; j < nombrePixelEnHauteur_; j++) {
+		Pixel *pixelsTmp = pixels_[j];
+		pixels_[j] = new Pixel[nombrePixelEnLargeur_ * 2];
+		// Copie des colonnes de l'ancienne image sur la nouvelle.
+		for (unsigned int i = 0; i < nombrePixelEnLargeur_ * 2; i++) {
+			if (i < nombrePixelEnLargeur_) {
+				pixels_[j][i] = pixelsTmp[i];
+			}
+			else {
+				pixels_[j][i] = pixelsTmp[i - nombrePixelEnLargeur_];
+			}
+		}
+	}
+	nombrePixelEnLargeur_ = nombrePixelEnLargeur_ * 2;
 }
 void Image::doublerTailleEnHauteur() {
+	// Stockage temporaire de l'image.
+	Pixel **pixelsTmp = pixels_;
+	// Création d'une nouvelle image hauteur * 2.
+	pixels_ = new Pixel*[nombrePixelEnHauteur_ * 2];
+	for (unsigned int i = 0; i < nombrePixelEnHauteur_ * 2; i++) {
+		pixels_[i] = new Pixel[nombrePixelEnLargeur_];
+	}
+	// Copie de l'image précédente sur la nouvelle image.
+	for (unsigned int j = 0; j < nombrePixelEnHauteur_ * 2; j++) {
+		if (j < nombrePixelEnHauteur_) {
+			for (unsigned int i = 0; i < nombrePixelEnLargeur_; i++) {
+				pixels_[j][i] = pixelsTmp[j][i];
+			}
+		}
+		else
+		{
+			for (unsigned int i = 0; i < nombrePixelEnLargeur_; i++) {
+				pixels_[j][i] = pixelsTmp[j - nombrePixelEnHauteur_][i];
+			}
+		}
+		}
 	nombrePixelEnHauteur_ = 2 * nombrePixelEnHauteur_;
 }
 // Augmenter teinte pixel.
