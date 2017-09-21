@@ -35,7 +35,7 @@ void Pixel::modifierTeinteRouge(int incrementRouge) {
 	if (((tauxRouge_ + incrementRouge) > MIN_CONCENTRATION_COULEUR) && ((tauxRouge_ + incrementRouge) < MAX_CONCENTRATION_COULEUR)) {
 		tauxRouge_ = tauxRouge_ + incrementRouge;
 	}
-	else if (tauxRouge_ + incrementRouge < MIN_CONCENTRATION_COULEUR) {
+	else if (tauxRouge_ + incrementRouge <= MIN_CONCENTRATION_COULEUR) {
 		tauxRouge_ = MIN_CONCENTRATION_COULEUR;
 	}
 	else {

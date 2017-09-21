@@ -58,11 +58,11 @@ void Image::doublerTailleEnHauteur() {
 // Augmenter teinte pixel.
 void Image::augmenterTeintePixel(unsigned int positionLargeur, unsigned int positionHauteur, int  increment, char couleur) {
 	if (couleur == 'G') 
-		pixels_[positionHauteur][positionLargeur].modifierTeinteVert(increment);
+		pixels_[positionHauteur - 1][positionLargeur - 1].modifierTeinteVert(increment);
 	if (couleur == 'R') 
-		pixels_[positionHauteur][positionLargeur].modifierTeinteRouge(increment);
+		pixels_[positionHauteur - 1][positionLargeur - 1].modifierTeinteRouge(increment);
 	if (couleur == 'B') 
-		pixels_[positionHauteur][positionLargeur].modifierTeinteBleu(increment);
+		pixels_[positionHauteur - 1][positionLargeur - 1].modifierTeinteBleu(increment);
 }
 
 void Image::afficherImage() const
@@ -77,9 +77,9 @@ void Image::afficherImage() const
 
 void Image::ajouterPixel(Pixel & pixel, unsigned int positionLargeur, unsigned int positionHauteur)
 {
-	pixels_[positionLargeur][positionHauteur] = pixel;
+	pixels_[positionHauteur][positionLargeur] = pixel;
 }
 
-Pixel Image::obtenirPixel(unsigned int positionHauteur, unsigned int positionLargeur) const {
-	return pixels_[positionLargeur][positionHauteur];
+Pixel Image::obtenirPixel(unsigned int positionLargeur, unsigned int positionHauteur) const {
+	return pixels_[positionHauteur][positionLargeur];
 }
