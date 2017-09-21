@@ -117,6 +117,10 @@ int main()
 	//img1.~Image();
 	//img2.~Image();
 	//groupe1.~GroupImage();
+
+	//---------test git-------
+	//modif Steven------
+
 	
 	system("pause");
 	return 0;
