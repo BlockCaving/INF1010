@@ -1,3 +1,8 @@
+/**************************************************
+* Titre: Travail pratique #1 - Pixel.h
+* Date: Septembre 2017
+* Auteur: Claude GAGNE - Steven NICOULEAU
+**************************************************/
 #ifndef PIXEL_H
 #define PIXEL_H
 
@@ -25,6 +30,7 @@ public:
 	void afficherPixel() const;
 
 private:
+	//Attributs
 	unsigned int tauxRouge_ ;
 	unsigned int tauxVert_;
 	unsigned int tauxBleu_;
