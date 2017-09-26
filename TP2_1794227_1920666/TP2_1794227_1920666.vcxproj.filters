@@ -15,30 +15,30 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\Image.h">
+    <ClInclude Include="..\Pixel.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Pixel.h">
+    <ClInclude Include="..\Const.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Const.h">
+    <ClInclude Include="..\GroupImage.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\GroupImage.h">
+    <ClInclude Include="..\Image.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\Main.cpp">
+    <ClCompile Include="..\Main.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Pixel.cpp">
+    <ClCompile Include="..\Pixel.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\GroupImage.cpp">
+    <ClCompile Include="..\GroupImage.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Image.cpp">
+    <ClCompile Include="..\Image.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
   </ItemGroup>
