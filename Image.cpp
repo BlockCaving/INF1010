@@ -15,6 +15,7 @@ Image::Image(const Image& imageCopie) :
 	nomImage_(imageCopie.nomImage_), nombrePixelEnHauteur_(imageCopie.nombrePixelEnHauteur_),
 	nombrePixelEnLargeur_(imageCopie.nombrePixelEnLargeur_), pixels_(nullptr)
 {
+	pixels_ = new Pixel*[nombrePixelEnLargeur_];
 	for (unsigned int i = 0; i < nombrePixelEnHauteur_; i++) {
 		pixels_[i] = imageCopie.pixels_[i];
 	}
@@ -66,46 +67,35 @@ bool Image::operator==(const Image& image) {
 				}
 			}
 		}
-		if (nombrePixelIdentique == (nombrePixelEnHauteur_ * nombrePixelEnLargeur_)) {
+		if (nombrePixelIdentique == (nombrePixelEnHauteur_ * nombrePixelEnLargeur_))
 			return true;
-		}
 		else
-		{
 			return false;
-		}
 	}
 	else
-	{
 		return false;
-	}
 }
 
 bool Image::operator==(string nomImage) {
-	if (nomImage_ == nomImage) {
+	if (nomImage_ == nomImage)
 		return true;
-	}
 	else
-	{
 		return false;
-	}
 }
 
 bool operator==(string nomImage, const Image& image) {
-	if (nomImage == image.nomImage_) {
+	if (nomImage == image.nomImage_)
 		return true;
-	}
 	else
-	{
 		return false;
-	}
 }
 
-Image& Image:: operator=(const Image image) {
+Image& Image:: operator=(const Image& image) {
 	if (this != &image) {
 		nomImage_ = image.nomImage_;
 		nombrePixelEnHauteur_ = image.nombrePixelEnHauteur_;
 		nombrePixelEnLargeur_ = image.nombrePixelEnLargeur_;
-		delete[] pixels_;		//a voir
+		delete[] pixels_;
 		for (unsigned int i = 0; i < nombrePixelEnHauteur_; i++) {
 			pixels_[i] = image.pixels_[i];
 		}
@@ -117,11 +107,9 @@ void Image::modifierNomImage(const string & nomImage) {
 	nomImage_ = nomImage;
 }
 
-
 unsigned int Image::obtenirNombrePixelHauteur() const {
 	return nombrePixelEnHauteur_;
 }
-
 
 unsigned int Image::obtenirNombrePixelLargeur() const {
 	return nombrePixelEnLargeur_;
@@ -141,9 +129,6 @@ bool Image::ajouterPixel(Pixel & pixel, unsigned int positionLargeur, unsigned i
 	}
 }
 
-
-
-
 void Image::doublerTailleEnHauteur(){
 	nombrePixelEnHauteur_ *= 2;
 
@@ -156,10 +141,9 @@ void Image::doublerTailleEnHauteur(){
 		imageTemp[i] = new Pixel[nombrePixelEnLargeur_];
 	}	
 
-	delete[] pixels_;
+	//delete[] pixels_;
 	pixels_ = imageTemp;
 	imageTemp = nullptr;
-
 }
 
 
@@ -173,30 +157,11 @@ void Image::doublerTailleEnLargeur() {
 		}
 		delete[] pixels_[i];
 		pixels_[i] = colonneImage;
-
-	}
-
-	
-}
-
-
-void Image::afficherImage() const {
-
-	cout << "Affichage de l'image :  " << obtenirNomImage().c_str()<< endl;
-	
-	for (unsigned int i = 0; i < nombrePixelEnHauteur_; i++) {
-		cout << "    ";
-			for (unsigned int j = 0; j < nombrePixelEnLargeur_;j++) {
-					pixels_[i][j].afficherPixel();
-		    }
-		cout << endl;
 	}
 }
 
 Pixel Image::obtenirPixel(unsigned int positionLargeur,unsigned int positionHauteur) const {
- 
 	return pixels_[positionHauteur][positionLargeur];
-
 }
 
 void Image::augmenterTeintePixel(unsigned int positionLargeur, unsigned int positionHauteur, int  increment, char couleur) {
@@ -210,5 +175,4 @@ void Image::augmenterTeintePixel(unsigned int positionLargeur, unsigned int posi
 	if (couleur == 'B') {
 		pixels_[positionHauteur][positionLargeur].modifierTeinteBleu(increment);
 	}
-
 }

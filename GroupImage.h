@@ -26,7 +26,6 @@ public:
 	// Méthode à supprimer pour TP2
 	unsigned int obtenirNombreImages() const;
 
-	// Méthode à modifier avec void ajouterImage(Image* &image);
 	void ajouterImage(const Image &image);
 	//  ajouter la methode pour retirer une image en donnant
 	//son nom en paramètre

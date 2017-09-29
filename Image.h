@@ -16,7 +16,8 @@ public:
 
 	// SI c'est nécessaire ajouter un constructeur par copie
 	Image(const Image& imageCopie);
-	Image& operator=(const Image image);
+
+	Image& operator=(const Image& image);
 	friend ostream& operator<<(ostream& o, const Image& image);
 	bool operator==(const Image& image);
 	bool operator==(string nomImage);
@@ -31,9 +32,6 @@ public:
 
 	
 	void modifierNomImage(const string & nomImage);
-
-	// Methode à ignorer pour le TP2
-	void afficherImage() const;
 
 	bool ajouterPixel(Pixel & pixel,unsigned int positionLargeur, unsigned int positionHauteur);
 	Pixel obtenirPixel(unsigned int positionHauteur, unsigned int positionLargeur) const ;

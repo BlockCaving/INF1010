@@ -39,15 +39,19 @@ unsigned int GroupImage::obtenirNombreImages() const {
 }
 
 void GroupImage::ajouterImage(const Image& image) {
-	for (unsigned int i = 0; i < nombreImages_; i++) {
+	bool flagErreur = false;								//= true si l'image ajouté a le nom d'une image du groupe
+	for (unsigned int i = 0; i <= nombreImages_; i++) {
 		if (*images_[i] == image.obtenirNomImage()) {
-			cout << "Erreur le nom 'image est déja utilisé!";
-			// À continuer...........
+			flagErreur = true;
 		}
 	}
-	if (nombreImages_ < capaciteImages_) {
-	//	images_[nombreImages_++] = image;
+	if ((nombreImages_ < capaciteImages_) && (flagErreur==false)) {		
+		*images_[nombreImages_] = image;
+		nombreImages_++;					//update nombreImages_
+		cout << image.obtenirNomImage().c_str() << " a bien ete ajoute" << endl;
 	}
+	else 
+		cout << "Erreur le nom de l'image est deja utilise ou la capacite du groupe est depasse!";
 }
 
 void GroupImage::afficherImages() const {
@@ -58,23 +62,21 @@ void GroupImage::afficherImages() const {
 	cout << "*********************************************"<< endl;
 	
 	for (unsigned int i = 0; i < nombreImages_; i++) {
-
-	//	images_[i].afficherImage();
+		cout << *images_[i];
 		cout << "---------------------------------------------" << endl;
-
 	}
 	cout << endl;
 }
 
-//Image GroupImage::obtenirImage(unsigned int indiceImage) const {
-	//return images_[indiceImage];
-//}
+Image GroupImage::obtenirImage(unsigned int indiceImage) const {
+	return *images_[indiceImage];
+}
 
 void GroupImage::doublerTailleImageEnLargeur(unsigned int indiceImage) {
-	//images_[indiceImage].doublerTailleEnLargeur();
+	(*images_[indiceImage]).doublerTailleEnLargeur();
 }
 
 void GroupImage::doublerTailleImageEnHauteur(unsigned int indiceImage) {
-	//images_[indiceImage].doublerTailleEnHauteur();
+	(*images_[indiceImage]).doublerTailleEnHauteur();
 }
  
