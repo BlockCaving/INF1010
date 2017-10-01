@@ -29,8 +29,8 @@ public:
 	void doublerTailleImageEnHauteur(unsigned int indiceImage);
 
 	//Opérateurs 
-	void operator+=(const Image& image);
-	void operator-=(const Image& image);
+	GroupImage& operator+=(const Image& image);
+	GroupImage& operator-=(const Image& image);
 	friend ostream& operator<<(ostream& o, const GroupImage& groupe);
 
 private:

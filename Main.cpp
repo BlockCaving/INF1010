@@ -71,7 +71,8 @@ int main()
 	GroupImage groupe1("GROUPE 1", 3);
 
 	//8- Ajoutez les deux images crées precédament au groupe
-	groupe1.ajouterImage(img1);
+	//groupe1.ajouterImage(img1);
+	groupe1 += img1;
 	groupe1.ajouterImage(img2);
 	
 	//9- Augmentez la teinte bleu du Pixel (1,1) de l'image 0 de 50 unités
@@ -89,7 +90,8 @@ int main()
 	cout << groupe1;
 
 	//13- Supprimer la premiere image du groupe d'image
-	groupe1.retirerImage("IMAGE 1");
+	//groupe1.retirerImage("IMAGE 1");
+	groupe1 -= img1;
 	
 	//14- Afficher le groupe d'image
 	cout << groupe1;

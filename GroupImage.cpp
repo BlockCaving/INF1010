@@ -62,6 +62,42 @@ ostream& operator<<(ostream& o, const GroupImage& groupe) {
 	return o;
 }
 
+//*****************************************************************************************
+//Nom: +=
+//Action: Ajoute une image au vecteur images_
+//*****************************************************************************************
+GroupImage& GroupImage::operator+=(const Image& image) {
+	bool flagErreur = false;								//= true si l'image ajoutée a le nom d'une image du groupe
+	for (unsigned int i = 0; i < nombreImages_; i++) {
+		if (*images_[i] == image.obtenirNomImage()) {
+			flagErreur = true;
+		}
+	}
+	if ((nombreImages_ < capaciteImages_) && (flagErreur == false)) {
+		*images_[nombreImages_] = image;
+		nombreImages_++;					//update nombreImages_
+		cout << image.obtenirNomImage().c_str() << " a bien ete ajoute" << endl;
+	}
+	else {
+		cout << "Erreur le nom de l'image est deja utilise ou la capacite du groupe est depasse!";
+	}
+	return *this;
+}
+//*****************************************************************************************
+//Nom: -=
+//Action: Enlève une image du vecteur images_
+//*****************************************************************************************
+GroupImage& GroupImage::operator-=(const Image& image) {
+	for (unsigned int i = 0; i < nombreImages_; i++) {
+		if (*images_[i] == image) {
+			images_[i] = images_[nombreImages_ - 1];
+			images_.pop_back();
+			nombreImages_--;							//update le nombre d'image
+		}
+	}
+	return *this;
+}
+
 
 //*********** METHODES *********//
 
