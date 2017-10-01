@@ -24,7 +24,6 @@ TODO : Veuillez répondre aux question ici
 
 int main()
 {
-
 	vector <Pixel> pixelRouge;
 	vector <Pixel> pixelVert;
 
@@ -33,12 +32,11 @@ int main()
 		pixelRouge.push_back(Pixel(255, 0, 0));
 	};
 	
-		//2-Creez 9 pixels verts (0,255,0) 
+	//2-Creez 9 pixels verts (0,255,0) 
 	for (int j = 0; j < 9; j++) {						//boucle créant 9 pixels verts 
 		pixelVert.push_back(Pixel(0, 255, 0));
 	};
 	
-
 	//3- Creez une image de taille 3*3 
 	Image img1("IMAGE 1", 3, 3);
 
@@ -46,9 +44,11 @@ int main()
  	int cpt = 0; //parcours le tableau de pixel rouge 
 	for (unsigned int k = 0; k < img1.obtenirNombrePixelLargeur(); k++) {			// parcourt toute l'image 
 		for (unsigned int l = 0; l < img1.obtenirNombrePixelHauteur(); l++) {		// pour la remplir avec les pixels rouges 
-			img1.ajouterPixel(pixelRouge[cpt], k, l);
-			cpt++;
-
+			if (cpt < pixelRouge.size())
+			{
+				img1.ajouterPixel(pixelRouge[cpt], k, l);
+				cpt++;
+			}
 		}
 	}
 
@@ -59,33 +59,41 @@ int main()
 	cpt = 0; //parcours le tableau de pixel rouge 
 	for (unsigned int k = 0; k < img2.obtenirNombrePixelLargeur(); k++) {			// parcourt toute l'image 
 		for (unsigned int l = 0; l < img2.obtenirNombrePixelHauteur(); l++) {		// pour la remplir avec les pixels rouges 
-			img2.ajouterPixel(pixelVert[cpt], k, l);
-			cpt++;
-
+			if (cpt < pixelVert.size())
+			{
+				img2.ajouterPixel(pixelVert[cpt], k, l);
+				cpt++;
+			}
 		}
 	}
-	
+		
 	//7- Creez un groupe d'image avec une capacite de 3
 	GroupImage groupe1("GROUPE 1", 3);
 
-	cout << (img1 == img2);
-	cout << (img1 == img1);
-
-
 	//8- Ajoutez les deux images crées precédament au groupe
+	groupe1.ajouterImage(img1);
+	groupe1.ajouterImage(img2);
 	
 	//9- Augmentez la teinte bleu du Pixel (1,1) de l'image 0 de 50 unités
-	 
+	Image imageModif = *(groupe1.obtenirImage(0));	
+	imageModif.augmenterTeintePixel(1, 1, 50, 'B');									
+
 	//10- Diminuer la teinte rouge du Pixel (1, 1) de l'image 0 de 255 unités
-	
+	imageModif.augmenterTeintePixel(1, 1, -255, 'R');
+
 	//11- Augmentez la teinte bleu du Pixel (2, 1) de l'image 1 de 100 unités  
+	imageModif = *(groupe1.obtenirImage(1));
+	imageModif.augmenterTeintePixel(2, 1, 100, 'B');
 	
 	//12- Afficher le groupe d'image
-	
+	cout << groupe1;
+
 	//13- Supprimer la premiere image du groupe d'image
+	groupe1.retirerImage("IMAGE 1");
 	
 	//14- Afficher le groupe d'image
-	
+	cout << groupe1;
+
 	cout << endl;
 	system("Pause");
 	return 0;

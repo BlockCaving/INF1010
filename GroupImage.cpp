@@ -2,16 +2,16 @@
 #include "GroupImage.h"
 #include <iostream>
 #include <vector>
-
-
 using namespace std;
 
+//Constructeur par defaut
 GroupImage::GroupImage():nombreImages_(1),capaciteImages_(1) {
 	images_.push_back(new Image());
 }
 
+//Destructeur
 GroupImage::~GroupImage() {
-	for (unsigned int i = 0; i < nombreImages_; i++) {
+	for (unsigned int i = 0; i < nombreImages_; i++) {			//supression des pointeurs
 		delete images_[i];
 	}
 	images_.clear();
@@ -19,62 +19,117 @@ GroupImage::~GroupImage() {
 	nombreImages_ = 0;
 }
 
+//Constructeur par parametre
 GroupImage::GroupImage(const string & type,unsigned int capaciteImages): type_(type), capaciteImages_(capaciteImages) {
 	for (unsigned int i = 0; i < capaciteImages_; i++) {
-		images_.push_back(new Image());
+		images_.push_back(new Image());							//alloue de l'espace mémoire dans le vecteur
 	}
 	nombreImages_ = 0;
 }
 
+//Mutateur
 void GroupImage::modifierType(const string & type) {
 	type_ = type;
 }
 
+//Accesseur
 string GroupImage::obtenirType() const{
 	return type_;
 }
 
-unsigned int GroupImage::obtenirNombreImages() const {
-	return nombreImages_;
+Image* GroupImage::obtenirImage(unsigned int indiceImage) const {
+	if (indiceImage<nombreImages_)
+		return images_[indiceImage];
 }
 
+
+//*********** OPERATEURS *********//
+//*****************************************************************************************
+//Nom: << 
+//Action: affiche les images du groupe
+//*****************************************************************************************
+ostream& operator<<(ostream& o, const GroupImage& groupe) {
+
+	o << "Affichage des images du groupe :  ";
+	o << groupe.obtenirType().c_str() << endl;
+	o << "*********************************************" << endl;
+
+	for (unsigned int i = 0; i < groupe.nombreImages_; i++) {
+		o << *groupe.obtenirImage(i);
+		o << "---------------------------------------------" << endl;
+	}
+	o << endl;
+	return o;
+}
+
+
+//*********** METHODES *********//
+
+//*****************************************************************************************
+//Nom: ajouterImage
+//Action: ajoute l'image passé en en parametre dans le groupe d'image si la capcitée le permet
+//Parametre:- const Image &image
+//Retrun: void
+//*****************************************************************************************
 void GroupImage::ajouterImage(const Image& image) {
+	bool flagErreur = false;								//= true si l'image ajoutée a le nom d'une image du groupe
 	for (unsigned int i = 0; i < nombreImages_; i++) {
 		if (*images_[i] == image.obtenirNomImage()) {
-			cout << "Erreur le nom 'image est déja utilisé!";
-			// À continuer...........
+			flagErreur = true;
 		}
 	}
-	if (nombreImages_ < capaciteImages_) {
-	//	images_[nombreImages_++] = image;
+	if ((nombreImages_ < capaciteImages_) && (flagErreur==false)) {		
+		*images_[nombreImages_] = image;
+		nombreImages_++;					//update nombreImages_
+		cout << image.obtenirNomImage().c_str() << " a bien ete ajoute" << endl;
+	}
+	else {
+		cout << "Erreur le nom de l'image est deja utilise ou la capacite du groupe est depasse!";
 	}
 }
 
-void GroupImage::afficherImages() const {
-
-	cout << "*********************************************" << endl;
-	cout << "Affichage des images du groupe :  ";
-	cout << obtenirType().c_str() << endl;
-	cout << "*********************************************"<< endl;
-	
+//*****************************************************************************************
+//Nom: retirerImage
+//Action: retire l'image dont le nom est passé en en parametre si elle est dans le groupe
+//Parametre:- const string nom
+//Retrun: void
+//*****************************************************************************************
+void GroupImage::retirerImage(const string nom) {
+	bool flagImageDelete = false;						//true si l'image a été convenablement supprimée
 	for (unsigned int i = 0; i < nombreImages_; i++) {
-
-	//	images_[i].afficherImage();
-		cout << "---------------------------------------------" << endl;
-
+		if (*images_[i] == nom) {
+			images_[i] = images_[nombreImages_-1];
+			images_.pop_back();
+			nombreImages_--;							//update le nombre d'image
+			flagImageDelete = true;
+		}
 	}
-	cout << endl;
+	//Affichage
+	if (flagImageDelete == true)
+		cout << "L'Image "<< nom.c_str() <<" a bien ete supprime de " << type_.c_str() << endl <<endl;
+	else
+		cout << "L'Image " << nom.c_str() << " ne fait pas parti de " << type_.c_str() << endl <<endl;
 }
 
-//Image GroupImage::obtenirImage(unsigned int indiceImage) const {
-	//return images_[indiceImage];
-//}
-
+//*****************************************************************************************
+//Nom: doublerTailleImageEnLargeur
+//Action: double la largeur de l'image dont l'indice est passé en parametre
+//Parametre:- unsigned int indiceImage
+//Retrun: void
+//*****************************************************************************************
 void GroupImage::doublerTailleImageEnLargeur(unsigned int indiceImage) {
-	//images_[indiceImage].doublerTailleEnLargeur();
+	if (indiceImage<nombreImages_)					//verification de l'indice
+		(*images_[indiceImage]).doublerTailleEnLargeur();
 }
 
+//*****************************************************************************************
+//Nom: doublerTailleImageEnHauteur
+//Action: double la hauteur de l'image dont l'indice est passé en parametre
+//Parametre:- unsigned int indiceImage
+//Retrun: void
+//*****************************************************************************************
 void GroupImage::doublerTailleImageEnHauteur(unsigned int indiceImage) {
-	//images_[indiceImage].doublerTailleEnHauteur();
+	if (indiceImage<nombreImages_)				//verifiaction de l'indice
+		(*images_[indiceImage]).doublerTailleEnHauteur();
 }
  

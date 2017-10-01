@@ -9,48 +9,36 @@ using namespace std;
 class GroupImage
 {
 public:
-	GroupImage(); // A modifier l'implementation
-	~GroupImage(); // A modifier l'implementation
-
-
-	// Constructeur à supprimer pour TP2
+	//Constructeur par defaut
+	GroupImage();
+	//Destructeur
+	~GroupImage();
+	// Constructeur par paremetre
 	GroupImage(const string &type, unsigned int capaciteImages);
 
+	//Mutateur
 	void modifierType(const string &type);
+	//Accesseur
 	string obtenirType() const;
+	Image* obtenirImage(unsigned int indiceImage) const;
 
-	// Modifier cette méthode par Image* obtenirImage(unsigned int indiceImage) const;
-	Image obtenirImage(unsigned int indiceImage) const;
-
-
-	// Méthode à supprimer pour TP2
-	unsigned int obtenirNombreImages() const;
-
-	// Méthode à modifier avec void ajouterImage(Image* &image);
+	//Methode
 	void ajouterImage(const Image &image);
-	//  ajouter la methode pour retirer une image en donnant
-	//son nom en paramètre
-
-	// Méthode à modifier avec void afficherImages(ostream& os)
-	void afficherImages() const;
-
-
+	void retirerImage(const string nom);
 	void doublerTailleImageEnLargeur(unsigned int indiceImage);
-
 	void doublerTailleImageEnHauteur(unsigned int indiceImage);
 
-
-	// Ajouter les opérateurs 
+	//Opérateurs 
+	void operator+=(const Image& image);
+	void operator-=(const Image& image);
+	friend ostream& operator<<(ostream& o, const GroupImage& groupe);
 
 private:
-
-	string type_;
-
-	// Attributs à mdifier 
+	//Attributs
+	string type_; 
 	unsigned int nombreImages_;
 	unsigned int capaciteImages_;
 	vector <Image*> images_;
-
 };
 
 #endif
