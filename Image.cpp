@@ -27,16 +27,15 @@ Image::~Image() {
 // Constructeur par parametres
 Image::Image(const string& cheminDuFichier, const TypeImage& type)
         : typeImage_(type), cheminVersImageOriginale_(cheminDuFichier), pixels_(nullptr) {
+	for (int i = cheminVersImageOriginale_.size(); i > 0; i--)
+	{	
+		if (cheminVersImageOriginale_[i] == '/')
+		{
+			nomDuFichier_ = cheminVersImageOriginale_.substr(i + 1, cheminVersImageOriginale_.size());
+			break;
+		}
+	}
 
-    // Todo : Retrouver le nom du fichier image a partir du chemin sur le disque cheminDuFichier
-    // Exemple : C:\Users\NOMUSAGER\images\image.bmp s'ecrit
-    //           /Users/NOMUSAGER/images/image.bmp
-    // mais vous pouvez aussi utiliser les chemins relatifs. (./Ensemble d'image/originale/image.bmp)
-
-    // Todo : decommenter la fonction qui permet de lire l'image. Cette fonction s'occupe de remplir
-    // les attributs taille_, hauteur_, largeur_ ainsi que pixels_.
-    // pixels_ est de la grandeur taille_, soit hauteur_ * largeur_.
-    // autrement dit, pixels_[i] est un pointeur sur un pixel.
 
     lireImage(cheminVersImageOriginale_, typeImage_);
     if(pixels_ == nullptr) {
@@ -137,6 +136,91 @@ void Image::changerNomImage(const std::string &nom) {
     nomDuFichier_ = nom;
 }
 
+//Conversion
+void Image::convertirNB() {
+	if (typeImage_ == Couleur) {
+		for (unsigned int i = 0; i < taille_; i++)
+		{
+			PixelCouleur* pixelCouleur = static_cast<PixelCouleur*> (pixels_[i]);
+			PixelBN* pixelNB = new PixelBN(pixelCouleur->convertirPixelBN());
+			delete pixels_[i];
+			pixels_[i] = pixelNB;
+			delete pixelCouleur;
+		}
+	}
+	else if (typeImage_ == Gris) {
+		for (unsigned int i = 0; i < taille_; i++)
+		{
+			PixelGris* pixelGris = static_cast<PixelGris*> (pixels_[i]);
+			PixelBN* pixelNB = new PixelBN(pixelGris->convertirPixelBN());
+			delete pixels_[i];
+			pixels_[i] = pixelNB;
+			delete pixelGris;
+		}
+	}
+	else
+		cout << "Conversion impossible l'image est deja NB";
+	
+}
+void Image::convertirGris() {
+	if (typeImage_ == Couleur) {
+		for (unsigned int i = 0; i < taille_; i++)
+		{
+			PixelCouleur* pixelCouleur = static_cast<PixelCouleur*> (pixels_[i]);
+			PixelGris* pixelGris = new PixelGris(pixelCouleur->convertirPixelGris());
+			delete pixels_[i];
+			pixels_[i] = pixelGris;
+			delete pixelCouleur;
+		}
+	}
+	else if (typeImage_ == NB) {
+		for (unsigned int i = 0; i < taille_; i++)
+		{
+			PixelBN* pixelNB = static_cast<PixelBN*> (pixels_[i]);
+			PixelGris* pixelGris = new PixelGris(pixelNB->convertirPixelGris());
+			delete pixels_[i];
+			pixels_[i] = pixelGris;
+			delete pixelNB;
+		}
+	}
+	else
+		cout << "Conversion impossible l'image est deja Gris";
+
+}
+void Image::convertirCouleur() {
+	if (typeImage_ == Gris) {
+		for (unsigned int i = 0; i < taille_; i++)
+		{
+			PixelGris* pixelGris = static_cast<PixelGris*> (pixels_[i]);
+
+			unchar[] tableauRGB = pixelGris->convertirPixelCouleur();
+			// A VOIR!!
+
+
+			PixelCouleur* pixelCouleur = new PixelCouleur();
+			delete pixels_[i];
+			pixels_[i] = pixelCouleur;
+			delete pixelCouleur;
+			delete pixelGris;
+		}
+	}
+	else if (typeImage_ == NB) {
+		for (unsigned int i = 0; i < taille_; i++)
+		{
+			PixelBN* pixelNB = static_cast<PixelBN*> (pixels_[i]);
+			PixelCouleur* pixelCouleur = new PixelCouleur();
+			PixelCouleur pixelTmp = pixelNB->convertirPixelCouleur();
+			pixelCouleur = &pixelTmp;
+			delete pixels_[i];
+			pixels_[i] = pixelNB;
+			delete pixelCouleur; // a vérif.
+			delete pixelNB;
+		}
+	}
+	else
+		cout << "Conversion impossible l'image est deja NB";
+
+}
 // Retourne le type de l'image en string
 string Image::obtenirTypeEnString() const {
     /*

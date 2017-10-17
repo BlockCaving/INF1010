@@ -40,6 +40,5 @@ bool PixelBN::operator==(const PixelBN& pixel) const {
 }
 // Accesseur
 bool PixelBN::obtenirDonnee() const {
-    // Todo
-    return true;
+    return donnee_;
 }

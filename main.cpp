@@ -41,6 +41,7 @@ int main() {
 	Image img1();
 	Image img2("../Ensemble d'images/Originale/Couleur.bmp", Couleurs);
 	cout << img2;
+	img2.convertirNB();
 
 
 	// Ajouter toutes les images au groupe en tant qu'image couleurs
@@ -61,7 +62,7 @@ int main() {
 
 
 	// Permet d'afficher le contenu de la console
-    PAUSE;
+	PAUSE;
 
 	// Fin du programme
     return 0;

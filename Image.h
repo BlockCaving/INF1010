@@ -33,6 +33,11 @@ public:
     TypeImage obtenirType() const;
     std::string obtenirTypeEnString() const;
 
+	//Convertir
+	void convertirNB();
+	void convertirGris();
+	void convertirCouleur();
+
     // Mutateurs
     void changerNomImage(const std::string& nom);
 
