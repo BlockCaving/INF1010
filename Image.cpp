@@ -192,15 +192,11 @@ void Image::convertirCouleur() {
 		for (unsigned int i = 0; i < taille_; i++)
 		{
 			PixelGris* pixelGris = static_cast<PixelGris*> (pixels_[i]);
-
-			unchar[] tableauRGB = pixelGris->convertirPixelCouleur();
-			// A VOIR!!
-
-
-			PixelCouleur* pixelCouleur = new PixelCouleur();
+			unchar* tableauRGB = pixelGris->convertirPixelCouleur();
+			PixelCouleur* pixelCouleur = new PixelCouleur(tableauRGB[0], tableauRGB[1], tableauRGB[2]);
 			delete pixels_[i];
 			pixels_[i] = pixelCouleur;
-			delete pixelCouleur;
+			delete tableauRGB;
 			delete pixelGris;
 		}
 	}
@@ -208,12 +204,11 @@ void Image::convertirCouleur() {
 		for (unsigned int i = 0; i < taille_; i++)
 		{
 			PixelBN* pixelNB = static_cast<PixelBN*> (pixels_[i]);
-			PixelCouleur* pixelCouleur = new PixelCouleur();
-			PixelCouleur pixelTmp = pixelNB->convertirPixelCouleur();
-			pixelCouleur = &pixelTmp;
+			unchar* tableauRGB = pixelNB->convertirPixelCouleur();
+			PixelCouleur* pixelCouleur = new PixelCouleur(tableauRGB[0], tableauRGB[1], tableauRGB[2]);
 			delete pixels_[i];
-			pixels_[i] = pixelNB;
-			delete pixelCouleur; // a vérif.
+			pixels_[i] = pixelCouleur;
+			delete tableauRGB;
 			delete pixelNB;
 		}
 	}
