@@ -30,7 +30,7 @@ unchar Pixel::testPixel(const unchar &valeur) const {
 // Accesseur
 TypePixel Pixel::getType() const { return type_; }
 
-// Surcharge de l'operateur =
+// Surcharge de l'operateur = compare deux Pixel
 bool Pixel::operator==(const Pixel& pixel) const {
     return(type_ == pixel.type_);
 }

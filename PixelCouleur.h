@@ -6,8 +6,7 @@
 enum Couleur { R=0, G=1, B=2 };  // R = 0, G = 1, B = 2
 const int LONGUEUR_TABLEAU = 3;  // donnee_[3]
 
-class PixelCouleur :
-	public Pixel
+class PixelCouleur :public Pixel
 {
 public:
     // Constructeur par defaut
@@ -27,12 +26,12 @@ public:
     unchar retournerG() const;
     unchar retournerB() const;
 
-    // Fonctions de conversion
+	// Surcharge de l'operateur ==
+	bool operator==(const PixelCouleur& pixel) const;
+
+    // methodes de conversion
 	bool convertirPixelBN() const;
 	unchar convertirPixelGris() const;
-
-    // Surcharge de l'operateur ==
-	bool operator==(const PixelCouleur& pixel) const;
 
 private:
 	unchar donnee_[3];

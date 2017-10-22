@@ -14,16 +14,16 @@ public:
     // Destructeur
 	~PixelGris();
 
-    // Fonctions de conversion
+	// Accesseur
+	unsigned int obtenirDonnee() const;
+
+	// Surcharge de l'operateur ==
+	bool operator==(const PixelGris& pixel) const;
+
+    // Methodes de conversion
 	bool convertirPixelBN() const;
 	unchar* convertirPixelCouleur() const;
 
-    // Accesseur
-	unsigned int obtenirDonnee() const;
-
-    // Surcharge de l'operateur ==
-	bool operator==(const PixelGris& pixel) const;
-    
 private:
 	unchar donnee_;
 };

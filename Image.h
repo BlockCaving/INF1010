@@ -33,13 +33,13 @@ public:
     TypeImage obtenirType() const;
     std::string obtenirTypeEnString() const;
 
+	// Mutateurs
+	void changerNomImage(const std::string& nom);
+
 	//Convertir
 	void convertirNB();
 	void convertirGris();
 	void convertirCouleur();
-
-    // Mutateurs
-    void changerNomImage(const std::string& nom);
 
     // Sauvegarde et lecture d'image sur disque
     void sauvegarderImage(const std::string &nomDuFichier = "./out.ppm");
@@ -50,7 +50,6 @@ public:
     bool operator==(const Image& image);
     bool operator==(const std::string& nom);
     friend bool operator==(const std::string& nom,  Image& image);
-
     friend std::ostream& operator<<(std::ostream& os, const Image& image);
 
 private:

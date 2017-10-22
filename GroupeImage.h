@@ -10,7 +10,6 @@ class GroupeImage {
 public:
     // Constructeur par defaut
     GroupeImage();
-    ~GroupeImage();
 
     // Accesseur
     Image* obtenirImage(unsigned int indiceImage) const;
@@ -23,10 +22,14 @@ public:
     // Surcharge d'operateurs
     GroupeImage& operator+=(Image* image);
     GroupeImage& operator-=(Image* image);
-    
     friend std::ostream& operator<<(std::ostream& os, const GroupeImage& image);
-    
     Image* operator[](const unsigned int& indice) const;
+
+	//Methode 
+	void toutMettreEnNB(void);
+	void toutMettreEnGris(void);
+	void toutMettreEnCouleur(void);
+	void toutEnregistrer(const std::string& spath);
 
 private:
     // Vecteur de pointeurs d'images

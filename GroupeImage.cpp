@@ -4,7 +4,13 @@
 
 using namespace std;
 
+//Constructeur par defaut
 GroupeImage::GroupeImage() {};
+
+//Acesseur
+unsigned int GroupeImage::obtenirNombreImages() const {
+	return (unsigned int)images_.size();
+}
 
 // Fonction qui ajoute une image au vecteur si elle n'est pas presente
 bool GroupeImage::ajouterImage(Image* image) {
@@ -41,6 +47,46 @@ Image* GroupeImage::obtenirImage(unsigned int indiceImage) const {
     return images_[indiceImage];
 }
 
+// Fonction qui converti toute les image d'un groupe en image Noir et Blanc
+void GroupeImage::toutMettreEnNB(void) {
+	for (int i = 0; i < images_.size(); i++) {
+		images_[i]->convertirNB();
+	}
+}
+
+// Fonction qui converti toute les image d'un groupe en image Gris
+void GroupeImage::toutMettreEnGris(void) {
+	for (int i = 0; i < images_.size(); i++) {
+		images_[i]->convertirGris();
+	}
+}
+// Fonction qui converti toute les image d'un groupe en image Couleur
+void GroupeImage::toutMettreEnCouleur(void) {
+	for (int i = 0; i < images_.size(); i++) {
+		images_[i]->convertirCouleur();
+	}
+}
+// Fonction qui enregistre toute les image dans le bon sous répertoir en fonction de son type
+// Parametre: string& path (chemin d'acces au repertoire d'ensemble d'image)
+void GroupeImage::toutEnregistrer(const std::string& path) {
+	string type = "";
+	string nom = "";
+	cout <<"\n\r";
+	cout << "\n\r";
+
+	//parcours toute les images
+	for (int i = 0; i < images_.size(); i++) {
+		//determine le lieu de sauvegarde
+		type = images_[i]->obtenirTypeEnString();
+		nom = images_[i]->obtenirNomImage();
+		string pathImage = path + type + "/" + nom;
+		images_[i]->sauvegarderImage(pathImage);
+		cout << "Sauvegarde de " + pathImage + "\n\r";
+	}
+	cout << "\n\r";
+	cout << "\n\r";
+}
+
 // Surcharge de l'operateur += qui ajoute une image au vecteur
 GroupeImage& GroupeImage::operator+=(Image* image)
 {
@@ -48,7 +94,7 @@ GroupeImage& GroupeImage::operator+=(Image* image)
     return *this;
 }
 
-// Surcharge de l'operateur -= qui reture une image au vecteur
+// Surcharge de l'operateur -= qui retire une image au vecteur
 GroupeImage& GroupeImage::operator-=(Image* image)
 {
     retirerImage(image->obtenirNomImage());
