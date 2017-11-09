@@ -36,7 +36,6 @@ bool GroupeImage::ajouterImage(Image* image) {
 	
 
 bool GroupeImage::retirerImage(const std::string& nom) {
-	bool egal = 0;
 	remove_if(images_.begin(), images_.end(), FoncteurImagesDeMemeNom(nom));
 }
 
@@ -45,18 +44,11 @@ void GroupeImage::afficherImages(ostream& os) const {
 	os << "**************************************************" << endl;
 	os << "Affichage des images du groupe :  " << endl;
 	os << "**************************************************" << endl << endl;
-
-	Iterator pos = images_.begin();
-	Iterator fin = images_.end();
-	for (pos; pos != fin; pos++) {
-		os << *(*pos) << "--------------------------------------------------" << endl;
-	}
-	os << endl;
+	copy(images_.begin(), images_.end(), ostream_iterator<Image*>(cout, "----------------------------")); // Reste à voir le delimiter avec ou sans endl
 }
 
 Image* GroupeImage::obtenirImage(unsigned int indiceImage) const {
-	Iterator pos = images_.begin();
-	return **(pos + indiceImage);
+	return *next(images_.begin(), indiceImage);
 }
 
 GroupeImage& GroupeImage::operator+=(Image* image)
@@ -78,12 +70,7 @@ std::ostream& operator<<(std::ostream& os, const GroupeImage& groupeImage)
 	os << "Affichage des images du groupe :  " << endl;
 	os << "**************************************************" << endl << endl;
 
-	Iterator pos = groupeImage.images_.begin();
-	Iterator fin = groupeImage.images_.end();
-	for (pos; pos != fin; pos++) {
-		os << *(*pos) << "--------------------------------------------------" << endl;
-	}
-	os << endl;
+	copy(groupeImage.images_.begin(), groupeImage.images_.end(), ostream_iterator<Image*>(cout, "----------------------------"));
 	return os;
 }
 
@@ -92,37 +79,23 @@ unsigned int GroupeImage::obtenirNombreImages() const {
 }
 
 void GroupeImage::toutMettreEnNB() {
-	Iterator pos = images_.begin();
-	Iterator fin = images_.end();
-	for (pos; pos != fin; pos++) {
-		**pos.convertirBN();
-	}
+	for_each(images_.begin(), images_.end(), FoncteurMettreEnBN());
 }
 void GroupeImage::toutMettreEnGris() {
-	Iterator pos = images_.begin();
-	Iterator fin = images_.end();
-	for (pos; pos != fin; pos++) {
-		**pos.convertirGris();
-	}
+	for_each(images_.begin(), images_.end(), FoncteurMettreEnGris());
 }
 
 void GroupeImage::toutMettreEnCouleur() {
-	Iterator pos = images_.begin();
-	Iterator fin = images_.end();
-	for (pos; pos != fin; pos++) {
-		**pos.convertirCouleur();
-	}
+	for_each(images_.begin(), images_.end(), FoncteurMettreEnCouleur());
 }
 
 void GroupeImage::toutMettreEnNegatif() {
-	Iterator pos = images_.begin();
-	Iterator fin = images_.end();
-	for (pos; pos != fin; pos++) {
-		**pos.mettreEnNegatif();
-	}
+	for_each(images_.begin(), images_.end(), FoncteurMettreEnNegatif());
 }
 
 void GroupeImage::toutEnregistrer() {
+	
+	for_each(images_.begin(), images_.end(), []
 	cout << endl;
 	Iterator pos = images_.begin();
 	Iterator fin = images_.end();
@@ -135,7 +108,7 @@ void GroupeImage::toutEnregistrer() {
 	}
 }
 
-Image* GroupeImage::obtenirImageParIndex(int index)
+Image* GroupeImage::obtenirImageParIndex(int index) //Similaire a obtenirImage... ligne 50
 {
 	auto it = images_.begin();
 	advance(it, index);
