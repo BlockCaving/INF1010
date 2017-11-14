@@ -36,7 +36,13 @@ bool GroupeImage::ajouterImage(Image* image) {
 	
 
 bool GroupeImage::retirerImage(const std::string& nom) {
-	remove_if(images_.begin(), images_.end(), FoncteurImagesDeMemeNom(nom));
+	int old_size = images_.size();
+	auto it = remove_if(images_.begin(), images_.end(), FoncteurImagesDeMemeNom(nom));
+	images_.erase(it, images_.end());
+	if (images_.size() != old_size)
+		return true;
+	else
+		return false;
 }
 
 void GroupeImage::afficherImages(ostream& os) const {
@@ -44,9 +50,17 @@ void GroupeImage::afficherImages(ostream& os) const {
 	os << "**************************************************" << endl;
 	os << "Affichage des images du groupe :  " << endl;
 	os << "**************************************************" << endl << endl;
-	copy(images_.begin(), images_.end(), ostream_iterator<Image*>(cout, "----------------------------")); // Reste à voir le delimiter avec ou sans endl
+	auto pos = images_.begin();
+	auto fin = images_.end();
+	for (pos; pos != fin; pos++) {
+		os << *(*pos) << "--------------------------------------------------" << endl;
+	}
+	//copy(groupeImage.images_.begin(), groupeImage.images_.end(), ostream_iterator<Image*>(os, "\n\r"));
 }
 
+
+
+/*A MODIFIER*/
 Image* GroupeImage::obtenirImage(unsigned int indiceImage) const {
 	return *next(images_.begin(), indiceImage);
 }
@@ -69,8 +83,12 @@ std::ostream& operator<<(std::ostream& os, const GroupeImage& groupeImage)
 	os << "**************************************************" << endl;
 	os << "Affichage des images du groupe :  " << endl;
 	os << "**************************************************" << endl << endl;
-
-	copy(groupeImage.images_.begin(), groupeImage.images_.end(), ostream_iterator<Image*>(cout, "----------------------------"));
+	auto pos = groupeImage.images_.begin();
+	auto fin = groupeImage.images_.end();
+	for (pos; pos != fin; pos++) {
+		os << *(*pos) << "--------------------------------------------------" << endl;
+	}
+	//copy(groupeImage.images_.begin(), groupeImage.images_.end(), ostream_iterator<Image*>(os, "\n\r"));
 	return os;
 }
 
@@ -78,6 +96,7 @@ unsigned int GroupeImage::obtenirNombreImages() const {
 	return images_.size();
 }
 
+/*/
 void GroupeImage::toutMettreEnNB() {
 	for_each(images_.begin(), images_.end(), FoncteurMettreEnBN());
 }
@@ -92,20 +111,25 @@ void GroupeImage::toutMettreEnCouleur() {
 void GroupeImage::toutMettreEnNegatif() {
 	for_each(images_.begin(), images_.end(), FoncteurMettreEnNegatif());
 }
+*/
+
+/* a implementer ??*/
+/*
+std::list<Image*> GroupeImage::obtenirListImage() const { 
+	return images_;
+}
+*/
 
 void GroupeImage::toutEnregistrer() {
-	
-	for_each(images_.begin(), images_.end(), []
-	cout << endl;
-	Iterator pos = images_.begin();
-	Iterator fin = images_.end();
-	for (pos; pos != fin; pos++) {
-		Image* image = **pos;
+	//Save une image
+	auto saveImage = [](Image* image) {
 		string nom = "./Ensemble d'images/" + image->obtenirTypeEnString()
 			+ "/" + image->obtenirNomImage();
 		cout << "Sauvegarde de " << nom << endl;
-		**pos->sauvegarderImage(nom);
-	}
+		image->sauvegarderImage(nom);
+	};
+	//save toutes les image
+	for_each(images_.begin(), images_.end(), saveImage);
 }
 
 Image* GroupeImage::obtenirImageParIndex(int index) //Similaire a obtenirImage... ligne 50
@@ -116,5 +140,37 @@ Image* GroupeImage::obtenirImageParIndex(int index) //Similaire a obtenirImage..
 }
 
 double GroupeImage::obtenirIntensiteMoyenne(){
+
+	int intensiteSomme = 0;
+	//Caclul de la somme des intensitées
+	auto pos = images_.begin();
+	auto fin = images_.end();
+	for (pos; pos != fin; pos++) {
+		intensiteSomme +=(*pos)->obtenirIntensiteMoyenne();
+	}
+	return intensiteSomme / images_.size();
 }
-double GroupeImage::obtenirTailleMoyenne();
+
+double GroupeImage::obtenirTailleMoyenne() {
+	
+	unsigned int taille = 0;
+	//Caclul de la somme des tailles
+
+	auto pos = images_.begin();
+	auto fin = images_.end();
+	for (pos; pos != fin; pos++) {
+		taille += (*pos)->obtenirTaille();
+	}
+	return taille / images_.size();
+}
+
+template<typename PredicatUnaire>
+void GroupeImage::appliquerFoncteurUnaire(PredicatUnaire& froncteur) const {
+	for_each(images_.begin(), images_.end(), froncteur);
+}
+
+template<typename PredicatUnaire>
+void GroupeImage::supprimerElements(PredicatUnaire& froncteur) {
+	auto it = remove_if(images_.begin(), images_.end(), FoncteurImagesDeMemeNom(nom));
+	images_.erase(it, images_.end());
+}

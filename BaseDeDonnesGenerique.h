@@ -12,21 +12,21 @@ template<typename T, typename S> //T = Image, S = GroupeImage
 class BaseDeDonnesGenerique
 {
 public:
-	BaseDeDonnesGenerique();
-	~BaseDeDonnesGenerique();
+	BaseDeDonnesGenerique() {};
+	~BaseDeDonnesGenerique() {};
 
 	list<T*> obtenirListImages() const {
 		return listImage_;
 	};
 	list<S*> obtenirListGroupeImages() const {
-		return listGroupeImages_;
+		return listGroupeImage_;
 	};
 
 	void ajouter(T* t) {
 		listImage_.push_back(t);
 	};
 	void ajouter(S* s) {
-		listGroupeImages_.push_back(s);
+		listGroupeImage_.push_back(s);
 	};
 
 	bool supprimer(const T* t) {
@@ -40,11 +40,11 @@ public:
 		}
 	};
 	bool supprimer(const S* s) {
-		Iterator pos = listGroupeImages_.begin();
-		Iterator fin = listGroupeImages_.end();
+		Iterator pos = listGroupeImage_.begin();
+		Iterator fin = listGroupeImage_.end();
 		for (pos; pos != fin; pos++) {
 			if (*(*pos) == t) {
-				listGroupeImages_.erase(pos);
+				listGroupeImage_.erase(pos);
 				break;
 			}
 		}

@@ -23,8 +23,8 @@ using namespace  std;
 int main() {
 	
 	// Chemin vers les images
-	string cheminLoad = "./Ensemble d'images/Originale/";
-    // Nom des 6 images dans un tableau de string
+	string cheminLoad = "../Ensemble d'images/Originale/";
+    // Nom des 9 images dans un tableau de string
 	string image[9] = {"Breaking-Bad.bmp", "Couleur.bmp", "Fall.bmp", "RM.bmp", "SolarEclipse.bmp", "Monkey.bmp","WiC.bmp","Sloth.bmp","Green.bmp"};
 
     // Creer un conteneur de type QUEUE et ajouter les images dans la queue
@@ -32,14 +32,25 @@ int main() {
 	cout << "Creation de la file de travail" << std::endl;
 	cout << "**************************************************" << endl << endl;
 
+	
+	queue<Image*> queue1 ;
+	for (unsigned int i = 0; i < 9; i++) {
+		Image* img = new Image(cheminLoad + image[i], Couleurs);
+		queue1.push(img);
+	}
+
 
 	//Creez 3 GroupeImage
-	
+	GroupeImage* groupe1 = new GroupeImage();
+	GroupeImage* groupe2 = new GroupeImage();
+	GroupeImage* groupe3 = new GroupeImage();
 
 	// Creez un objet de type BaseDeDonnesSpecifique et ajoutez les 3 groupes a la base de donnes
+	BaseDeDonnesSpecifique base1 = BaseDeDonnesSpecifique();
+	base1.ajouter(groupe1);
+	base1.ajouter(groupe2);
+	base1.ajouter(groupe3);
 	
-
-
 	/*Faites repartir les elements de la queue de maniere uniforme et sequentielle dans les groupe
 	 Vous devez avoir la composition suivante :
 		groupe 1 a les images 0,3,6
@@ -53,10 +64,20 @@ int main() {
 	cout << "CHARGEMENT DES IMAGES\n\n";
 	// TODO : Votre implementation ici
 
-	
-	cout << "**************************************************" << endl << endl;
-	cout <<"AFFICHAGE DE LA BASE DE DONNESES\n";
+	for (unsigned int i = 0; i < 9; i = i + 3) {
+		*groupe1 += new Image(cheminLoad + queue1.front()->obtenirNomImage(), Couleurs);
+		queue1.pop();
+		*groupe2 += new Image(cheminLoad + queue1.front()->obtenirNomImage(), Couleurs);
+		queue1.pop();
+		*groupe3 += new Image(cheminLoad + queue1.front()->obtenirNomImage(), Couleurs);
+		queue1.pop();
+	}
+
+	cout << "**************************************************" << endl;
+	cout <<"AFFICHAGE DE LA BASE DE DONNEES\n";
 	// TODO : Afficher la base de donnes au complet
+
+	cout << base1;
 
 	// Pour chaque groupe, generez un nombre aleatoire. Le nombre aleatoire doit toujours donner un index valide
 	// ET appliquez les modifications suivantes aux images obtenues avec le nombre aleatoire
@@ -108,7 +129,7 @@ int main() {
 
 
 	// Afficher le nombre d'images dans la base de donnes
-	cout << "Nombre d'images totales dans la base de donnes " << dataBase.obtenirListImages().size() << endl;
+	//cout << "Nombre d'images totales dans la base de donnes " << dataBase.obtenirListImages().size() << endl;
 
 	// Trouver at afficher le nombre d'images qui ont une taille plus grande que la moyenne calculee
 	// Utiliser les fonctions std::bind et std::placeholders pour effectuer le travail

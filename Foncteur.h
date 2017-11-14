@@ -120,8 +120,9 @@ public:
 	~FoncteurGenerateurNombresAlea() {}
 
 	unsigned int operator() () const {
+		/*
 		RAND_MIN = min_;
-		RAND_MAX = max_;
+		RAND_MAX = max_;*/
 		return std::rand(); // ????
 	}
 

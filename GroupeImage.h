@@ -19,6 +19,8 @@ public:
     ~GroupeImage();
 
 	Image* obtenirImage(unsigned int indiceImage) const;
+	std::list<Image*> obtenirListImage() const;
+
 
     // Partie à ajouter et à modifier
     bool ajouterImage(Image* image);
