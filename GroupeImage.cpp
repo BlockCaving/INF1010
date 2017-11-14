@@ -52,7 +52,7 @@ void GroupeImage::afficherImages(ostream& os) const {
 	os << "**************************************************" << endl << endl;
 	auto pos = images_.begin();
 	auto fin = images_.end();
-	for (pos; pos != fin; pos++) {
+	for (; pos != fin; pos++) {
 		os << *(*pos) << "--------------------------------------------------" << endl;
 	}
 	//copy(groupeImage.images_.begin(), groupeImage.images_.end(), ostream_iterator<Image*>(os, "\n\r"));
@@ -148,7 +148,7 @@ double GroupeImage::obtenirIntensiteMoyenne(){
 	for (pos; pos != fin; pos++) {
 		intensiteSomme +=(*pos)->obtenirIntensiteMoyenne();
 	}
-	return intensiteSomme / images_.size();
+	return intensiteSomme / (double)images_.size();
 }
 
 double GroupeImage::obtenirTailleMoyenne() {
@@ -161,7 +161,7 @@ double GroupeImage::obtenirTailleMoyenne() {
 	for (pos; pos != fin; pos++) {
 		taille += (*pos)->obtenirTaille();
 	}
-	return taille / images_.size();
+	return taille / (double)images_.size();
 }
 
 template<typename PredicatUnaire>

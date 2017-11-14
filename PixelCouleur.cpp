@@ -113,5 +113,5 @@ bool PixelCouleur::estMajoriteBleu() const {
 	}
 }
 double PixelCouleur::retournerIntensiteMoyenne() const {
-	return (donnee_[Couleur::B] + donnee_[Couleur::R] + donnee_[Couleur::G]) / 3;
+	return (double)(donnee_[Couleur::B] + donnee_[Couleur::R] + donnee_[Couleur::G]) / (double)3.0 / (double)255.0;
 }

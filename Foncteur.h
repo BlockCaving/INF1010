@@ -6,7 +6,6 @@
 
 #define RAND_MIN_DEFAUT 0
 #define RAND_MAX_DEFAUT 3
-#define RAND_MAX
 
 class FoncteurEgalImages
 {
@@ -120,10 +119,11 @@ public:
 	~FoncteurGenerateurNombresAlea() {}
 
 	unsigned int operator() () const {
-		/*
-		RAND_MIN = min_;
-		RAND_MAX = max_;*/
-		return std::rand(); // ????
+		int r = std::rand();
+		r = (r %  max_ + min_);
+
+		if (r >= min_ && r<max_)
+			return r;
 	}
 
 private:
