@@ -116,45 +116,29 @@ int main() {
 
 	cout << "MOYENNES DES IMAGES DANS LA BASE DE DONNES: \n";
 
-	auto liste = base1.obtenirListImages();
-	/*
-	auto pos = liste.begin();
-	auto fin = liste.end();
-	for (; pos != fin; pos++) {
-		cout << (*(*pos)).obtenirNomImage() << "avec moyenne de " << (*(*pos)).obtenirIntensiteMoyenne();
-	}*/
-
-	for (auto image : liste) {
-		image->obtenirNomImage();
-		cout << image->obtenirNomImage() << "avec moyenne de " << image->obtenirIntensiteMoyenne() << endl;
-	}
-
-	//for (Type variable : conteneur)
-
 	// Trouver toutes les images avec une intensite moyenne plus petite que la valeur trouve et
 	// afficher leur nom et leur moyenne
 	// ATTENTION : Faire ceci avec une boucle for intelligente de type 
-	//																for (auto imnage: liste)
-
-
+	auto liste = base1.obtenirListImages();
+	for (auto image : liste) {
+		if (image->obtenirIntensiteMoyenne() < intensiteMoyenneGroupe1)
+			cout << image->obtenirNomImage() << "avec moyenne de " << image->obtenirIntensiteMoyenne() << endl;
+	}
 	cout << "**************************************************" << endl << endl;
-
-
-
 	cout << "**************************************************" << endl;
 	cout << "CALCUL DE LA TAILLE \n\n";
 	// TODO : Votre implementation ici
 
 	double tailleMoyenneGroupe1 = groupe1->obtenirTailleMoyenne();
-
 	cout << "Taille moyenne : " << tailleMoyenneGroupe1 << endl;
-
-	/*
-	auto pos = base1.obtenirListImages().begin();
-	auto fin = base1.obtenirListImages().end();
-	for (; pos != fin; pos++) {
-	cout << (*pos)->obtenirNomImage() << "avec moyenne de " << (*pos)->obtenirTaille();
-	}*/
+	
+	/*cout << "Nombre d'images totales dans la base de donnes: " << size(base1.obtenirListImages());
+	int plusGrandQueMoyenne;
+	for (auto image : liste) {
+		if (image->obtenirTaille() > tailleMoyenneGroupe1)
+			plusGrandQueMoyenne ++;
+	}
+	cout << "Nombre d'images dont la taille est plus grande que la moyenne: " << plusGrandQueMoyenne
 
 
 	/*
@@ -165,15 +149,15 @@ int main() {
 
 
 	// Afficher le nombre d'images dans la base de donnes
-	//cout << "Nombre d'images totales dans la base de donnes " << dataBase.obtenirListImages().size() << endl;
+	cout << "Nombre d'images totales dans la base de donnes " << base1.obtenirListImages().size() << endl;
 
 	// Trouver at afficher le nombre d'images qui ont une taille plus grande que la moyenne calculee
 	// Utiliser les fonctions std::bind et std::placeholders pour effectuer le travail
 
 	// Decommenter et Remplacer les variables X,Y, Z par les bons elements 
-	/*
+	
 	 MonFoncteur foncteurTaille;
-	 groupeImage2->supprimerElements(
+	 groupe2->supprimerElements(
 		std::bind(
 			X, //A COMPLETER générer un opérateur > pour les entiers
 			//Le bind ci-dessous permet d'appeler la méthode obtenirTaile de la
@@ -185,7 +169,7 @@ int main() {
 			Z //A COMPLETER comparer à taille Moyenne
 			)
 		);
-	 */
+	 
 
 	// Calculer le nombre d'images avec une taille superieure a la taille moyenne
 	// ASTUCE: utilisez la STL et les fonctions de decompte conditionel

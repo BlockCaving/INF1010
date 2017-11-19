@@ -141,7 +141,7 @@ Image* GroupeImage::obtenirImageParIndex(int index) //Similaire a obtenirImage..
 
 double GroupeImage::obtenirIntensiteMoyenne(){
 
-	int intensiteSomme = 0;
+	double intensiteSomme = 0;
 	//Caclul de la somme des intensitées
 	auto pos = images_.begin();
 	auto fin = images_.end();
