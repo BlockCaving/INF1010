@@ -40,7 +40,7 @@ int main() {
 	queue<Image*> queue1;
 	for (unsigned int i = 0; i < 9; i++) {
 		Image* img = new Image(cheminLoad + image[i], Couleurs);
-		queue1.push(img);
+		queue1.push(img);																//push chaque image du tableau image[i] dans le queue
 	}
 
 
@@ -66,40 +66,37 @@ int main() {
 
 	cout << "**************************************************" << endl;
 	cout << "CHARGEMENT DES IMAGES\n\n";
-	// TODO : Votre implementation ici
-
-
+	
+	//Votre implementation ici
 	for (unsigned int i = 0; i < 9; i = i + 3) {
-		base1.AssocierImage(groupe1, new Image(cheminLoad + queue1.front()->obtenirNomImage(), Couleurs));
-		queue1.pop();
-		base1.AssocierImage(groupe2, new Image(cheminLoad + queue1.front()->obtenirNomImage(), Couleurs));
-		queue1.pop();
-		base1.AssocierImage(groupe3, new Image(cheminLoad + queue1.front()->obtenirNomImage(), Couleurs));
-		queue1.pop();
+		base1.AssocierImage(groupe1, new Image(cheminLoad + queue1.front()->obtenirNomImage(), Couleurs));			//rempli la base et le groupe1
+		queue1.pop();																								//vide la file pour passer à l'image suivante
+		base1.AssocierImage(groupe2, new Image(cheminLoad + queue1.front()->obtenirNomImage(), Couleurs));			//rempli la base et le groupe2
+		queue1.pop();																								//vide la file pour passer à l'image suivante
+		base1.AssocierImage(groupe3, new Image(cheminLoad + queue1.front()->obtenirNomImage(), Couleurs));			//rempli la base et le groupe3
+		queue1.pop();																								//vide la file pour passer à l'image suivante
 	}
 
 	cout << "**************************************************" << endl;
 	cout << "AFFICHAGE DE LA BASE DE DONNEES\n";
-	// TODO : Afficher la base de donnes au complet
+	// Afficher la base de donnes au complet
 
-	//cout << *groupe1;
 	cout << base1;
 
 	// Pour chaque groupe, generez un nombre aleatoire. Le nombre aleatoire doit toujours donner un index valide
 	// ET appliquez les modifications suivantes aux images obtenues avec le nombre aleatoire
 	//GROUPE 1 - Mettre en negatif
-
-	//index a generer aleatoirememnt
-	groupe1->obtenirImageParIndex(1)->mettreEnNegatif();
+	FoncteurGenerateurNombresAlea fonctalea = FoncteurGenerateurNombresAlea(0, 3);					//constructeur par parametre du foncteur
+	int aleaGroupe1 = fonctalea();																	//generation du nombre pour le groupe 1
+	groupe1->obtenirImageParIndex(aleaGroupe1)->mettreEnNegatif();
 
 	//GROUPE 2 - Mettre en gris
-
-	//index a generer aleatoirememnt
-	groupe2->obtenirImageParIndex(1)->convertirGris();
+	int aleaGroupe2 = fonctalea();																	//generation du nombre pour le groupe 2
+	groupe2->obtenirImageParIndex(aleaGroupe2)->convertirGris();
 
 	//GROUPE 3 - Mettre en noir et blanc
-	//index a generer aleatoirememnt
-	groupe3->obtenirImageParIndex(1)->convertirBN();
+	int aleaGroupe3 = fonctalea();																	//generation du nombre pour le groupe 3
+	groupe3->obtenirImageParIndex(aleaGroupe3)->convertirBN();
 
 	/*
 	 *TRAITEMENT DE GROUPE 1
@@ -108,74 +105,63 @@ int main() {
 
 	cout << "**************************************************" << endl;
 	cout << "CALCUL DE LA MOYENNE \n\n";
-	// TODO : Votre implementation ici
+	//Votre implementation ici
 
 	double intensiteMoyenneGroupe1 = groupe1->obtenirIntensiteMoyenne();
-
 	cout << "Intensite moyenne du groupe 1: " << intensiteMoyenneGroupe1 << endl;
-
 	cout << "MOYENNES DES IMAGES DANS LA BASE DE DONNES: \n";
 
 	// Trouver toutes les images avec une intensite moyenne plus petite que la valeur trouve et
 	// afficher leur nom et leur moyenne
-	// ATTENTION : Faire ceci avec une boucle for intelligente de type 
+	// ATTENTION : Faire ceci avec une boucle for intelligente 
+
 	auto liste = base1.obtenirListImages();
+
 	for (auto image : liste) {
-		if (image->obtenirIntensiteMoyenne() < intensiteMoyenneGroupe1)
-			cout << image->obtenirNomImage() << "avec moyenne de " << image->obtenirIntensiteMoyenne() << endl;
+		if (image->obtenirIntensiteMoyenne() < intensiteMoyenneGroupe1)								//si l'intensite de l'image est > a la moyenne du groupe
+			cout << image->obtenirNomImage() << " avec moyenne de " << image->obtenirIntensiteMoyenne() << endl;			//affiche la moyenne
 	}
 	cout << "**************************************************" << endl << endl;
 	cout << "**************************************************" << endl;
 	cout << "CALCUL DE LA TAILLE \n\n";
-	// TODO : Votre implementation ici
-
-	double tailleMoyenneGroupe1 = groupe1->obtenirTailleMoyenne();
-	cout << "Taille moyenne : " << tailleMoyenneGroupe1 << endl;
-	
-	/*cout << "Nombre d'images totales dans la base de donnes: " << size(base1.obtenirListImages());
-	int plusGrandQueMoyenne;
-	for (auto image : liste) {
-		if (image->obtenirTaille() > tailleMoyenneGroupe1)
-			plusGrandQueMoyenne ++;
-	}
-	cout << "Nombre d'images dont la taille est plus grande que la moyenne: " << plusGrandQueMoyenne
-
-
+	//Votre implementation ici
 	/*
 	 *TRAITEMENT DE GROUPE 2
 	 * Calculer la taille moyenne des images dans le groupe 2 et afficher l'afficher
 	 */
-	
-
+	double tailleMoyenneGroupe2 = groupe2->obtenirTailleMoyenne();
+	cout << "Taille moyenne du groupe 2: " << tailleMoyenneGroupe2 << endl;
 
 	// Afficher le nombre d'images dans la base de donnes
 	cout << "Nombre d'images totales dans la base de donnes " << base1.obtenirListImages().size() << endl;
 
-	// Trouver at afficher le nombre d'images qui ont une taille plus grande que la moyenne calculee
+	// Trouver et afficher le nombre d'images qui ont une taille plus grande que la moyenne calculee
 	// Utiliser les fonctions std::bind et std::placeholders pour effectuer le travail
 
-	// Decommenter et Remplacer les variables X,Y, Z par les bons elements 
-	
-	 MonFoncteur foncteurTaille;
-	 groupe2->supprimerElements(
+	int nbrImageTailleSuperieurMoyenne = 0; 
+	FoncteurObtenirTailleImage foncteurTaille;
+
+	//Un exemple de supprimerElements 
+	//suprimme tout éléments du groupe 2 ayant une taille supérieur a la moyenne
+	groupe2->supprimerElements(
 		std::bind(
-			X, //A COMPLETER générer un opérateur > pour les entiers
+			//Générer un opérateur > pour les entiers
+			greater<int>(),
 			//Le bind ci-dessous permet d'appeler la méthode obtenirTaile de la
 			//Image* passée en argument du foncteur lors des appels de ce dernier dans supprimerElements
-			std::bind(
-				foncteurTaille,
-				Y //A COMPLETER utiliser le premier placeholder (attention aux namespace) (reçoit une Image*)
-				),
-			Z //A COMPLETER comparer à taille Moyenne
+			std::bind(foncteurTaille, std::placeholders::_1), 
+			tailleMoyenneGroupe2
 			)
 		);
-	 
+
 
 	// Calculer le nombre d'images avec une taille superieure a la taille moyenne
 	// ASTUCE: utilisez la STL et les fonctions de decompte conditionel
 
+	nbrImageTailleSuperieurMoyenne = count_if(liste.begin(), liste.end(), std::bind(greater<int>(),std::bind(foncteurTaille, std::placeholders::_1),tailleMoyenneGroupe2));
+
 	// Afficher le nombre d'images dans la base de donnes avec une taille plus grande que la moyenne
-	cout << "Nombre d'images dont la taille est plus grande que la moyenne " << "REMPLACEZ CA AVEC LA TAILLE" << endl;
+	cout << "Nombre d'images dont la taille est plus grande que la moyenne " << nbrImageTailleSuperieurMoyenne << endl;
 	
 	cout << "**************************************************" << endl << endl;
 
@@ -188,15 +174,16 @@ int main() {
 	 */
 
 	cout << "**************************************************" << endl;
-	cout << "CONVERSION EN NOIR ET BLANC \n";
-	// TODO : Votre implementation ici
+	cout << "CONVERSION EN NOIR ET BLANC " << endl << endl;
+	// Votre implementation ici
+	groupe3->appliquerFoncteurUnaire(FoncteurMettreEnBN());
+	groupe3->toutEnregistrer();
 
 	cout << "**************************************************" << endl << endl;
 
 
     // Permet d'afficher le contenu de la console
     PAUSE;
-	//TODO SupprimerElements un exemple
     // Fin du programme
     return 0;
 }

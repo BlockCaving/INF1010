@@ -19,8 +19,6 @@ public:
     ~GroupeImage();
 
 	Image* obtenirImage(unsigned int indiceImage) const;
-	std::list<Image*> obtenirListImage() const;
-
 
     // Partie à ajouter et à modifier
     bool ajouterImage(Image* image);
@@ -37,13 +35,6 @@ public:
     unsigned int obtenirNombreImages() const;
 	void toutEnregistrer();
 
-	// A SUPPRIMER
-	void toutMettreEnNB();
-	void toutMettreEnGris();
-	void toutMettreEnCouleur();
-	void toutMettreEnNegatif();
-
-
 	// TP5
 	Image* obtenirImageParIndex(int index);
 	double obtenirIntensiteMoyenne();
@@ -51,9 +42,15 @@ public:
 
 	// A implementer dans ce fichier
 	template<typename PredicatUnaire>
-	void appliquerFoncteurUnaire(PredicatUnaire& froncteur) const;
+	void appliquerFoncteurUnaire(PredicatUnaire& foncteur) const {
+		for_each(images_.begin(), images_.end(), foncteur);					//pour chaque element de laliste parcourue, on applique le foncteur
+	}
+
 	template<typename PredicatUnaire>
-	void supprimerElements(PredicatUnaire& froncteur);
+	void supprimerElements(PredicatUnaire& foncteur) {
+		auto it = remove_if(images_.begin(), images_.end(), foncteur);		//on retire chaque élément de la liste parcourue pour lequelle le foncteur est vrai
+		images_.erase(it, images_.end());
+	};
 
 
 private:

@@ -35,8 +35,8 @@ public:
         return valeur > VALEUR_MAX_PIXEL ? (unchar)VALEUR_MAX_PIXEL : valeur;
     }
 
-
 	//TP5
+	//Methode virtuelle pure 
 	virtual bool estMajoriteRouge() const = 0;
 	virtual bool estMajoriteVert() const = 0;
 	virtual bool estMajoriteBleu() const = 0;

@@ -15,6 +15,7 @@ public:
 	}
 	~FoncteurEgalImages() {}
 
+	//retrun true si l'attribut pointeur images_ est le meme que le pointeur passé en paametre  
 	bool FoncteurEgalImages::operator() (Image* imageAComparer) const {
 		if (*image_ == *imageAComparer)
 			return true;
@@ -34,6 +35,7 @@ public:
 	}
 	~FoncteurImagesDeMemeNom() {};
 
+	//retrun true si le nom de l'image est le meme que celui passé en parametre
 	bool operator() ( Image* image) const {
 		if (nom_ == image->obtenirNomImage())
 			return true;
@@ -50,7 +52,7 @@ class FoncteurObtenirTailleImage
 public:
 	FoncteurObtenirTailleImage() {}
 	~FoncteurObtenirTailleImage() {}
-
+	//donne la taille de l'image 
 	unsigned int operator() (const Image* image) const {
 		return image->obtenirTaille();
 	}
@@ -63,6 +65,7 @@ public:
 	FoncteurMettreEnGris() {}
 	~FoncteurMettreEnGris() {}
 
+	//convertis l'image en gris
 	void operator() (Image* image) {
 		image->convertirGris();
 	}
@@ -75,6 +78,7 @@ public:
 	FoncteurMettreEnCouleur() {}
 	~FoncteurMettreEnCouleur() {}
 
+	//convertis l'image en couleur
 	void operator() (Image* image) {
 		image->convertirCouleur();
 	}
@@ -87,6 +91,7 @@ public:
 	FoncteurMettreEnBN() {}
 	~FoncteurMettreEnBN() {}
 
+	//convertis l'image en noir et blanc
 	void operator() (Image* image) {
 		image->convertirBN();
 	}
@@ -99,6 +104,7 @@ public:
 	FoncteurMettreEnNegatif() {}
 	~FoncteurMettreEnNegatif() {}
 
+	//convertis l'image en negatif
 	void operator() (Image* image) {
 		image->mettreEnNegatif();
 	}
@@ -118,6 +124,7 @@ public:
 
 	~FoncteurGenerateurNombresAlea() {}
 
+	//génére un nombe aleatoire compris entre min_ et max_
 	unsigned int operator() () const {
 		int r = std::rand();
 		r = (r %  max_ + min_);

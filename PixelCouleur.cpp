@@ -1,5 +1,10 @@
 #include "PixelCouleur.h"
 
+
+//*****************************************************************************************
+//		CODE FOURNIS
+//*****************************************************************************************
+
 PixelCouleur::PixelCouleur() {
 	assignerValeur(VALEUR_MIN_PIXEL);
 }
@@ -85,6 +90,17 @@ void PixelCouleur::mettreEnNegatif() {
 	donnee_[Couleur::B] = 255 - donnee_[Couleur::B];
 }
 
+
+//*****************************************************************************************
+//		CODE NON FOURNIS
+//*****************************************************************************************
+
+//*****************************************************************************************
+//Nom: estMajoriteRouge
+//Action: methode constante qui retourne true si le pixel est à majorite rouge.
+//Parametre:- void
+//Retrun: bool
+//*****************************************************************************************
 bool PixelCouleur::estMajoriteRouge() const {
 	if (donnee_[Couleur::R] > donnee_[Couleur::B] + donnee_[Couleur::G]) {
 		return true;
@@ -94,6 +110,13 @@ bool PixelCouleur::estMajoriteRouge() const {
 		return false;
 	}
 }
+
+//*****************************************************************************************
+//Nom: estMajoriteVert
+//Action: methode constante qui retourne true si le pixel est à majorite vert.
+//Parametre:- void
+//Retrun: bool
+//*****************************************************************************************
 bool PixelCouleur::estMajoriteVert() const {
 	if (donnee_[Couleur::G] > donnee_[Couleur::B] + donnee_[Couleur::R]) {
 		return true;
@@ -103,6 +126,13 @@ bool PixelCouleur::estMajoriteVert() const {
 		return false;
 	}
 }
+
+//*****************************************************************************************
+//Nom: estMajoriteBleu
+//Action: methode constante qui retourne true si le pixel est à majorite Bleu.
+//Parametre:- void
+//Retrun: bool
+//*****************************************************************************************
 bool PixelCouleur::estMajoriteBleu() const {
 	if (donnee_[Couleur::B] > donnee_[Couleur::R] + donnee_[Couleur::G]) {
 		return true;
@@ -112,6 +142,13 @@ bool PixelCouleur::estMajoriteBleu() const {
 		return false;
 	}
 }
+
+//*****************************************************************************************
+//Nom: retournerIntensiteMoyenne
+//Action: methode constante qui retourne un decimal entre 0 et 1 represantant l'intensité moyenne
+//Parametre:- void
+//Retrun: double
+//*****************************************************************************************
 double PixelCouleur::retournerIntensiteMoyenne() const {
-	return (double)(donnee_[Couleur::B] + donnee_[Couleur::R] + donnee_[Couleur::G]) / (double)3.0 / (double)255.0;
+	return (double)(donnee_[Couleur::B] + donnee_[Couleur::R] + donnee_[Couleur::G]) / (double)3.0 / (double)255.0;		//effectue la moyenne des trois couleur et reduit entre 0 et 1
 }

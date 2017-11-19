@@ -32,7 +32,9 @@ public:
 	bool supprimer(const T* t) {
 		Iterator pos = listImage_.begin();
 		Iterator fin = listImage_.end();
-		for (pos; pos != fin; pos++) {
+		//parcours chque element de la liste et surprime celui qui correspond à l'objet passe en parametre (par incrementation de l'itérateur)
+		//aurait pu etre fait par un find mais le sujet ne precise pas
+		for (; pos != fin; pos++) {
 			if (*pos == t) {
 				listImage_.erase(pos);
 				break;
@@ -42,7 +44,9 @@ public:
 	bool supprimer(const S* s) {
 		Iterator pos = listGroupeImage_.begin();
 		Iterator fin = listGroupeImage_.end();
-		for (pos; pos != fin; pos++) {
+		//parcours chque element de la liste et surprime celui qui correspond à l'objet passe en parametre (par incrementation de l'itérateur)
+		//aurait pu etre fait par un find mais le sujet ne precise pas
+		for (; pos != fin; pos++) {
 			if (*(*pos) == t) {
 				listGroupeImage_.erase(pos);
 				break;
@@ -53,17 +57,20 @@ public:
 
 	template<typename Predicate>
 	bool supprimerImage(const Predicate& predicate) {
+		//parcours chaque element de la liste d'image et surprime ceux pour lequel le predicat est vrai
 		auto it = remove_if(listImage_.begin(), listImage_.end(), predicate);
 		listImage_.erase(it, listImage_.end());
 	}
 
 	template<typename Predicate>
 	bool supprimerGroupeImage(const Predicate& predicate) {
+		//parcours chaque element de la liste de groupeImage et surprime ceux pour lequel le predicat est vrai
 		auto it = remove_if(listGroupImage_.begin(), listGroupImage_.end(), predicate);
 		listGroupImage_.erase(it, listGroupImage_.end());
 	}
 
 	void vider() {
+		//surpimme tout les éléments des deux listes 
 		listImage_.erase(listImage_.begin(), listImage_.end());
 		listGroupImage_.erase(listGroupImage_.begin(), listGroupImage_.end());
 	}

@@ -10,6 +10,11 @@
 
 using namespace std;
 
+
+//*****************************************************************************************
+//		CODE FOURNIS
+//*****************************************************************************************
+
 // Constructeur par defaut
 Image::Image() : pixels_(nullptr), typeImage_(TypeImage::Couleurs) {
     hauteur_ = 0;
@@ -368,47 +373,79 @@ void Image::lirePixelsBN(std::ifstream &bmpIn) {
     }
 }
 
+//*****************************************************************************************
+//		CODE NON FOURNIS
+//*****************************************************************************************
+
+//*****************************************************************************************
+//Nom: estMajoriteRouge
+//Action: methode constante qui retourne true si plus de la moitié des pixel de l'image est à majorite Rouge.
+//Parametre:- void
+//Retrun: bool
+//*****************************************************************************************
 bool Image::estMajoriteRouge() const {
 	unsigned int nbPixelMajorite = 0;
 	for (unsigned int i = 0; i < taille_; i++)
 	{
 		if (pixels_[i]->estMajoriteRouge())
-			nbPixelMajorite++;
+			nbPixelMajorite++;								//somme tout les pixels rouge
 	}
-	if (nbPixelMajorite > taille_ / 2)
+	if (nbPixelMajorite > taille_ / 2)						//si c'est plus de la moitée du nombre de pixels
 		return true;
 	else
 		return false;
 }
+
+//*****************************************************************************************
+//Nom: estMajoriteVert
+//Action: methode constante qui retourne true si plus de la moitié des pixel de l'image est à majorite Vert.
+//Parametre:- void
+//Retrun: bool
+//*****************************************************************************************
 bool Image::estMajoriteVert() const {
 	unsigned int nbPixelMajorite = 0;
 	for (unsigned int i = 0; i < taille_; i++)
 	{
 		if (pixels_[i]->estMajoriteVert())
-			nbPixelMajorite++;
+			nbPixelMajorite++;								//somme tout les pixels vert
 	}
-	if (nbPixelMajorite > taille_ / 2)
+	if (nbPixelMajorite > taille_ / 2)						//si c'est plus de la moitée du nombre de pixels
 		return true;
 	else
 		return false;
 }
+
+//*****************************************************************************************
+//Nom: estMajoriteBleu
+//Action: methode constante qui retourne true si plus de la moitié des pixel de l'image est à majorite Bleu.
+//Parametre:- void
+//Retrun: bool
+//*****************************************************************************************
 bool Image::estMajoriteBleu() const {
 	unsigned int nbPixelMajorite = 0;
 	for (unsigned int i = 0; i < taille_; i++)
 	{
-		if (pixels_[i]->estMajoriteBleu())
+		if (pixels_[i]->estMajoriteBleu())					//somme tout les pixels bleu
 			nbPixelMajorite++;
 	}
-	if (nbPixelMajorite > taille_ / 2)
+	if (nbPixelMajorite > taille_ / 2)						//si c'est plus de la moitée du nombre de pixels
 		return true;
 	else
 		return false;
 }
+
+
+//*****************************************************************************************
+//Nom: retournerIntensiteMoyenne
+//Action: methode constante qui retourne un decimal entre 0 et 1 represantant la moyenne de l'intensitéde chaque pixele de l'image
+//Parametre:- void
+//Retrun: double
+//*****************************************************************************************
 double Image::obtenirIntensiteMoyenne() const {
 	double sommeIntensiteMoyenne = 0;
 	for (unsigned int i = 0; i < taille_; i++)
 	{
-		sommeIntensiteMoyenne += pixels_[i]->retournerIntensiteMoyenne();
+		sommeIntensiteMoyenne += pixels_[i]->retournerIntensiteMoyenne();		//somme toute les intensité
 	}
-	return sommeIntensiteMoyenne / taille_;
+	return sommeIntensiteMoyenne / (double)taille_;						//et divise par le nombre de pixel
 }
